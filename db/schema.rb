@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824185542) do
+ActiveRecord::Schema.define(version: 20150824210837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,23 +30,25 @@ ActiveRecord::Schema.define(version: 20150824185542) do
   add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
 
   create_table "goals", force: :cascade do |t|
-    t.string   "title",                          null: false
+    t.string   "title",                           null: false
     t.string   "description"
-    t.integer  "user_id",                        null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "privacy",     default: "Public"
-    t.boolean  "completed",   default: false
+    t.integer  "user_id",                         null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "privacy",      default: "Public"
+    t.boolean  "completed",    default: false
+    t.integer  "cheers_value", default: 0,        null: false
   end
 
   add_index "goals", ["user_id"], name: "index_goals_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",        null: false
-    t.string   "password_digest", null: false
-    t.string   "session_token",   null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "username",                     null: false
+    t.string   "password_digest",              null: false
+    t.string   "session_token",                null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "cheers_bank",     default: 10, null: false
   end
 
   add_index "users", ["session_token"], name: "index_users_on_session_token", unique: true, using: :btree

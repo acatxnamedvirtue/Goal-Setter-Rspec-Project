@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
-  validates :username, :password_digest, :session_token, presence: true
+  validates :username, :password_digest, :session_token, :cheers_bank, presence: true
   validates :username, :session_token, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }
+  validates :cheers_bank, numericality: { greater_than_or_equal_to: 0 }
 
   attr_reader :password
 
@@ -40,5 +41,14 @@ class User < ActiveRecord::Base
 
   def ensure_session_token
     self.session_token ||= generate_session_token
+  end
+
+  def give_cheer(goal)
+    if self.cheers_bank > 0
+      goal.cheers_value += 1
+      goal.save!
+      self.cheers_bank -= 1
+      self.save!
+    end
   end
 end

@@ -22,6 +22,7 @@
 
 <% if signed_in? %>
   <h1>Hello, <%= current_user.username %>!</h1>
+  You have <%= current_user.cheers_bank %> Cheers left
   <%= button_to "Sign Out", session_url, method: :delete %>
 <% else %>
   <%= link_to "Sign In", new_session_url %>
@@ -30,5 +31,11 @@
 
 <%= yield %>
 
+Leaderboard:
+</br>
+  <% Goal.all.where(privacy: "Public").order(cheers_value: :DESC).limit(5).each do |goal| %>
+    <%= goal.cheers_value %>: <%= link_to goal.title, goal_url(goal) %> <%= goal.user.username %>
+    </br>
+  <% end %>
 </body>
 </html>

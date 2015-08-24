@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   end
   resource :session, only: [:new, :create, :destroy]
   resources :goals, except: [:new, :edit, :index] do
+    post "cheer", on: :member
   end
   resources :comments, only: [:destroy, :create]
 

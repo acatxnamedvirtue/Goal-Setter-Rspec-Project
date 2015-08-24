@@ -3,7 +3,7 @@
   <% @goals.each do |goal| %>
     <% if goal.privacy == "Public" || @user == current_user %>
       <li>
-        <%= link_to goal.title, goal_url(goal) %>
+        <%= link_to goal.title, goal_url(goal) %> (<%= goal.cheers_value %>)
 
         <% if @user == current_user %>
           <br>

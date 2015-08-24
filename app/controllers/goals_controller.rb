@@ -45,6 +45,12 @@ class GoalsController < ApplicationController
     redirect_to current_user
   end
 
+  def cheer
+    @goal = Goal.find(params[:id])
+    current_user.give_cheer(@goal)
+    redirect_to :back
+  end
+
   private
 
   def goal_params

@@ -45,7 +45,7 @@ feature "when logged in" do
     end
 
     it "should track own goal completion" do
-      click_link("sleep through lecture")
+      first(:link, "sleep through lecture").click
       expect(page).to have_content("Completed")
     end
 
@@ -78,7 +78,7 @@ feature "when logged in" do
     end
 
     it "should track others' goal completion" do
-      click_link("sleep through lecture")
+      first(:link, "sleep through lecture").click
       expect(page).to have_content("Completed")
     end
   end

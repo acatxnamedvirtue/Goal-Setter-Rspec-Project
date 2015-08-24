@@ -1,6 +1,8 @@
 <%= link_to "Back to Goals", user_url(@user) %>
 
 <h1><%= @goal.title %></h1>
+(<%= @goal.cheers_value %> cheers)
+<%= link_to "Cheer!", cheer_goal_url(@goal), method: :post %>
 Description: <%= @goal.description %>
 <br>
 Privacy: <%= @goal.privacy %>
