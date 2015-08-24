@@ -17,8 +17,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:goals).find(params[:id])
+    @user = User.includes(:goals, :comments).find(params[:id])
     @goals = @user.goals
+    @comments = @user.comments
   end
 
   private

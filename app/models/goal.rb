@@ -6,4 +6,5 @@ class Goal < ActiveRecord::Base
     message: "must be either true or false" }
 
   belongs_to :user
+  has_many :comments, as: :commentable
 end

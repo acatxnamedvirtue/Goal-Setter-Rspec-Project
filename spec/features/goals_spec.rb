@@ -45,11 +45,14 @@ feature "when logged in" do
     end
 
     it "should track own goal completion" do
+      click_link("sleep through lecture")
       expect(page).to have_content("Completed")
     end
+
+    it "should have an add goal link on User show page" do
+      expect(page).to have_link("Add Goal")
+    end
   end
-
-
 
   context "others' show page" do
     before do
@@ -75,7 +78,43 @@ feature "when logged in" do
     end
 
     it "should track others' goal completion" do
+      click_link("sleep through lecture")
       expect(page).to have_content("Completed")
     end
+  end
+end
+
+feature "Goal Creation/Editing" do
+  before do
+    sign_up_as_testing_username
+  end
+  before(:each) { click_link("Add Goal") }
+
+
+  it "should have a field for title" do
+    expect(page).to have_content("Title")
+  end
+
+  it "should have a field for description" do
+    expect(page).to have_content("Description")
+  end
+
+  it "should have a radio button for privacy" do
+    expect(page).to have_content("Private")
+    expect(page).to have_content("Public")
+  end
+
+  it "should have a radio button for completion" do
+    expect(page).to have_content("Yes")
+    expect(page).to have_content("No")
+  end
+
+  it "should allow a goal to be added" do
+    fill_in 'Title', with: 'My Goal'
+    fill_in 'Description', with: 'My Description'
+    choose('Private')
+    choose('Yes')
+    click_button("Add Goal")
+    expect(page).to have_content("My Goal")
   end
 end

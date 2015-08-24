@@ -1,15 +1,9 @@
-<h1>Hello, <%= @user.username %></h1>
+<h2><%= @user.username %>'s Goals</h2>
 <ul>
   <% @goals.each do |goal| %>
     <% if goal.privacy == "Public" || @user == current_user %>
       <li>
-        Title: <%= goal.title %>
-        <br>
-        Description: <%= goal.description %>
-        <br>
-        Privacy: <%= goal.privacy %>
-        <br>
-        Completed: <%= goal.completed %>
+        <%= link_to goal.title, goal_url(goal) %>
 
         <% if @user == current_user %>
           <br>
@@ -24,3 +18,26 @@
 <% if @user == current_user %>
   <%= link_to "Add Goal", new_user_goal_url(@user) %>
 <% end %>
+
+
+<ul>
+  <% @comments.each do |comment| %>
+    <li>
+      <%= comment.author.username %> says <%= comment.body %>
+    </li>
+    <% if comment.author == current_user %>
+      <br>
+      <%= button_to "Delete Comment", comment, method: :delete %>
+    <% end %>
+  <% end %>
+</ul>
+
+<form action="<%= comments_url %>" method="post">
+  <%= form_auth_token %>
+  <label for="comment_body">Body</label>
+  <input id="comment_body" type="text" name="comment[body]">
+  <input type="hidden" name="comment[commentable_type]" value="User">
+  <input type="hidden" name="comment[commentable_id]" value="<%= @user.id %>">
+
+  <button>Add Comment</button>
+</form>

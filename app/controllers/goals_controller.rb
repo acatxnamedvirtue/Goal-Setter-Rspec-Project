@@ -3,6 +3,12 @@ class GoalsController < ApplicationController
     @goal = Goal.new
   end
 
+  def show
+    @goal = Goal.includes(:user, :comments).find(params[:id])
+    @user = @goal.user
+    @comments = @goal.comments
+  end
+
   def create
     @goal = current_user.goals.new(goal_params)
 
