@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
 
   has_many :goals
-  has_many :comments, as: :commentable
+  include Commentable
   has_many :authored_comments,
     class_name: "Comment",
     foreign_key: :author_id
