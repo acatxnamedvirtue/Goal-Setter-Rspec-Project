@@ -47,6 +47,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'launchy'
 end
 
 group :development do

@@ -1,1 +1,26 @@
 <h1>Hello, <%= @user.username %></h1>
+<ul>
+  <% @goals.each do |goal| %>
+    <% if goal.privacy == "Public" || @user == current_user %>
+      <li>
+        Title: <%= goal.title %>
+        <br>
+        Description: <%= goal.description %>
+        <br>
+        Privacy: <%= goal.privacy %>
+        <br>
+        Completed: <%= goal.completed %>
+
+        <% if @user == current_user %>
+          <br>
+          <%= link_to "Edit Goal", edit_user_goal_url(user_id: @user.id, id: goal.id) %>
+          <%= button_to "Delete Goal", goal, method: :delete %>
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<% if @user == current_user %>
+  <%= link_to "Add Goal", new_user_goal_url(@user) %>
+<% end %>
